@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Available Cars</h2>
+
+<div class="car-grid">
+    {% for car in cars %}
+        <div class="car-card">
+            <h3>{{ car.brand }} {{ car.name }}</h3>
+            <p>₹{{ car.price_per_day }} / day</p>
+
+            <a class="btn"
+               href="{% url 'car-detail' car.id %}">
+               View Details
+            </a>
+        </div>
+    {% empty %}
+        <p>No cars available.</p>
+    {% endfor %}
+</div>
+{% endblock %}

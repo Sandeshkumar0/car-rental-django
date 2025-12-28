@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ car.brand }} {{ car.name }}</h2>
+<p><strong>₹{{ car.price_per_day }}</strong> / day</p>
+
+<hr>
+
+{% if car.images.all %}
+<div class="image-grid">
+    {% for img in car.images.all %}
+        <img src="{{ img.image.url }}" class="car-image">
+    {% endfor %}
+</div>
+{% endif %}
+
+
+<h3>Book this car</h3>
+
+{% if error %}
+    <div class="error-box">{{ error }}</div>
+{% endif %}
+
+<form method="post" class="booking-form">
+    {% csrf_token %}
+
+    <label>Start date</label>
+    <input type="date"
+           name="start_date"
+           min="{{ today }}"
+           required>
+
+    <label>End date</label>
+    <input type="date"
+           name="end_date"
+           min="{{ today }}"
+           required>
+
+    <button class="btn" type="submit">Book Now</button>
+</form>
+{% endblock %}

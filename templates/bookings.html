@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>My Bookings</h2>
+
+<ul>
+    {% for booking in bookings %}
+        <li>
+            <strong>{{ booking.car }}</strong><br>
+            {{ booking.start_date }} → {{ booking.end_date }}<br>
+            Status: {{ booking.status }}
+
+            {% if booking.status == "BOOKED" %}
+                <form method="post"
+                      action="{% url 'booking-cancel-ui' booking.id %}">
+                    {% csrf_token %}
+                    <button class="btn cancel-btn" type="submit">
+                        Cancel Booking
+                    </button>
+                </form>
+            {% endif %}
+        </li>
+        <hr>
+    {% empty %}
+        <li>No bookings yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
