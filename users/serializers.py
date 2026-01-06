@@ -37,3 +37,7 @@ class UserLoginSerializer(serializers.Serializer):
 
         data["user"] = user
         return data
+        
+class OTPVerifySerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    otp = serializers.CharField(max_length=6)
